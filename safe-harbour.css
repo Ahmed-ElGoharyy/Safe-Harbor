@@ -1,0 +1,146 @@
+/* popup.css */
+
+/* Popup background */
+body {
+  font-family: "Segoe UI", Roboto, sans-serif;
+  margin: 0;
+  padding: 20px;
+  width: 320px;
+  height: 320px;
+  background: #ffffff;
+  color: #222222;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Faded logo watermark */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("logo_128.png") no-repeat center center;
+  background-size: 220px 220px;
+  opacity: 0.15;
+  z-index: -1;
+}
+
+/* Colors */
+:root {
+  --green: #16a34a;
+  --red: #dc2626;
+}
+
+/* Main logo (zoom animation) */
+.logo {
+  width: 120px;
+  margin: 10px auto 20px;
+  display: block;
+  animation: zoomPulse 3s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+}
+
+@keyframes zoomPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+/* Toggle + spinner wrapper */
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 20px 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Toggle switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 65px;
+  height: 34px;
+}
+
+.switch input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: var(--red);
+  transition: 0.4s;
+  border-radius: 50px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--green);
+}
+
+input:checked + .slider:before {
+  transform: translateX(30px);
+}
+
+/* Spinner */
+.spinner {
+  display: none;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(0,0,0,0.2);
+  border-top: 3px solid var(--green);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.spinner.active {
+  display: inline-block;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Domain logos */
+.domain-logo {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  display: none;
+}
+
+/* Footer */
+.footer {
+  font-size: 13px;
+  margin-top: 10px;
+  font-weight: 500;
+  color: #444444;
+  opacity: 0.9;
+  position: relative;
+  z-index: 1;
+}
