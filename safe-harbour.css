@@ -17,7 +17,7 @@
 
 html, body {
   width: 240px;
-  height: 100%;
+  height: 300px;
 }
 
 body {
@@ -39,8 +39,8 @@ body {
 }
 
 .logo {
-  width: 48px;
-  height: 48px;
+  width: 60px;
+  height: 60px;
   display: block;
   filter: drop-shadow(0 2px 8px rgba(59, 130, 246, 0.3));
 }

@@ -25,7 +25,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     if (detectedModel) {
       btn.disabled = false;
       status.textContent = "DISABLED";
-      detectedMode.textContent = `Detected mode: ${detectedModel}`;
+      detectedMode.textContent = `Detected model : ${detectedModel}`;
     } else {
       btn.disabled = true;
       status.textContent = "Not supported";
