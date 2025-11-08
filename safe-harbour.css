@@ -2,6 +2,8 @@
   --dark-blue: #0a1929;
   --light-blue: #3b82f6;
   --accent-blue: #60a5fa;
+  --green: #10b981;
+  --green-light: #34d399;
   --white: #ffffff;
   --grey: #6b7280;
   --grey-light: #9ca3af;
@@ -14,8 +16,8 @@
 }
 
 html, body {
-  width: 320px;
-  height: 300px;
+  width: 280px;
+  height: 100%;
 }
 
 body {
@@ -26,14 +28,13 @@ body {
 
 .container {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 40px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 12px;
   padding: 16px;
-  min-height: 240px;
   text-align: center;
 }
 
@@ -81,8 +82,8 @@ h1 {
 }
 
 .toggle-btn.enabled {
-  background: linear-gradient(145deg, var(--light-blue), var(--accent-blue));
-  box-shadow: 0 6px 24px rgba(59, 130, 246, 0.4), 0 0 40px rgba(59, 130, 246, 0.2);
+  background: linear-gradient(145deg, var(--green), var(--green-light));
+  box-shadow: 0 6px 24px rgba(16, 185, 129, 0.4), 0 0 40px rgba(16, 185, 129, 0.2);
 }
 
 .status {
@@ -92,8 +93,24 @@ h1 {
 }
 
 .status.active {
-  color: var(--light-blue);
+  color: var(--green);
   font-weight: 600;
+}
+
+.detected-mode {
+  font-size: 11px;
+  color: var(--grey);
+  margin-top: 4px;
+}
+
+.footer {
+  width: 100%;
+  padding: 8px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  font-size: 10px;
+  color: var(--grey);
+  background: rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 360px) {
