@@ -1,27 +1,27 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const toggleSwitch = document.getElementById("toggleSwitch");
-  const spinner = document.getElementById("spinner");
+  const toggleButton = document.getElementById("toggleButton");
+  const buttonText = document.getElementById("buttonText");
+  const statusDot = document.getElementById("statusDot");
+  const statusText = document.getElementById("statusText");
   const domainLogo = document.getElementById("domainLogo");
+  const domainInfo = document.getElementById("domainInfo");
+  const domainTextEl = document.getElementById("domainText");
 
-  // Supported domain -> logo map
   const domainLogos = {
-    "chat.openai.com": "chatgpt_logo.png",
-    "chatgpt.com":"chatgpt_logo.png",
-    "claude.ai": "claude_logo.png",
-    "www.claude.ai": "claude_logo.png",
-    "deepseek.com": "deepseek_logo.png",
-    "chat.deepseek.com": "deepseek_logo.png"
+    "chat.openai.com": { logo: "chatgpt_logo.png", name: "ChatGPT" },
+    "chatgpt.com": { logo: "chatgpt_logo.png", name: "ChatGPT" },
+    "claude.ai": { logo: "claude_logo.png", name: "Claude" },
+    "www.claude.ai": { logo: "claude_logo.png", name: "Claude" },
+    "deepseek.com": { logo: "deepseek_logo.png", name: "DeepSeek" },
+    "chat.deepseek.com": { logo: "deepseek_logo.png", name: "DeepSeek" }
   };
 
-  let matchedFile = null;
+  let isEnabled = false;
+  let matchedDomain = null;
 
-  // Reset UI
-  spinner.classList.remove("active");
-  domainLogo.style.display = "none";
-  toggleSwitch.disabled = true;
-  toggleSwitch.checked = false;
+  toggleButton.disabled = true;
+  domainInfo.classList.remove("visible");
 
-  // Get active tab hostname
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     if (!tabs || !tabs.length) return;
 
@@ -29,32 +29,43 @@ document.addEventListener("DOMContentLoaded", () => {
       const url = new URL(tabs[0].url);
       const hostname = url.hostname.toLowerCase();
 
-      console.log("DEBUG: Active tab hostname =", hostname); // 👈 check this in Console
-
       if (domainLogos[hostname]) {
-        matchedFile = domainLogos[hostname];
-        toggleSwitch.disabled = false;
+        matchedDomain = domainLogos[hostname];
+        toggleButton.disabled = false;
+        domainLogo.src = matchedDomain.logo;
+        domainTextEl.textContent = matchedDomain.name;
+        domainInfo.classList.add("visible");
       } else {
-        toggleSwitch.disabled = true;
-        toggleSwitch.checked = false;
+        toggleButton.disabled = true;
       }
     } catch (err) {
-      console.error("popup: error parsing tab URL:", err);
+      console.error("Error parsing tab URL:", err);
     }
   });
 
-  // Toggle ON/OFF
-  toggleSwitch.addEventListener("change", () => {
-    if (!matchedFile) {
-      toggleSwitch.checked = false;
-      return;
-    }
+  toggleButton.addEventListener("click", () => {
+    if (!matchedDomain) return;
 
-    if (toggleSwitch.checked) {
-      domainLogo.src = matchedFile;
-      domainLogo.style.display = "inline-block";
-    } else {
-      domainLogo.style.display = "none";
-    }
+    toggleButton.classList.add("loading");
+
+    setTimeout(() => {
+      isEnabled = !isEnabled;
+
+      if (isEnabled) {
+        toggleButton.classList.add("enabled");
+        toggleButton.classList.remove("loading");
+        buttonText.textContent = "DISABLE";
+        statusDot.classList.add("active");
+        statusText.classList.add("active");
+        statusText.textContent = "ENABLED";
+      } else {
+        toggleButton.classList.remove("enabled");
+        toggleButton.classList.remove("loading");
+        buttonText.textContent = "ENABLE";
+        statusDot.classList.remove("active");
+        statusText.classList.remove("active");
+        statusText.textContent = "DISABLED";
+      }
+    }, 500);
   });
 });

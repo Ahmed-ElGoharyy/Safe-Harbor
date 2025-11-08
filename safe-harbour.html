@@ -6,21 +6,31 @@
   <link rel="stylesheet" href="safe-harbour.css">
 </head>
 <body>
-  <!-- Safe Harbor Logo -->
-  <img src="logo_128.png" alt="Safe Harbor Logo" class="logo">
-
-  <!-- Toggle + Spinner + Domain Logo -->
-  <div class="toggle-wrapper">
-    <label class="switch">
-      <input type="checkbox" id="toggleSwitch">
-      <span class="slider"></span>
-    </label>
-    <div class="spinner" id="spinner"></div>
-    <img id="domainLogo" class="domain-logo" src="" alt="Domain Logo">
+  <div class="header">
+    <img src="logo_128.png" alt="Safe Harbor Logo" class="logo">
+    <h1 class="title">Safe Harbor</h1>
   </div>
 
-  <!-- Footer -->
-  <div class="footer">Safe Harbor anonymizes PII to protect user's sensitive data</div>
+  <div class="main-content">
+    <div class="status-indicator" id="statusIndicator">
+      <div class="status-dot" id="statusDot"></div>
+      <span class="status-text" id="statusText">DISABLED</span>
+    </div>
+
+    <button class="toggle-button" id="toggleButton" disabled>
+      <span class="button-text" id="buttonText">ENABLE</span>
+      <div class="spinner" id="spinner"></div>
+    </button>
+
+    <div class="domain-info" id="domainInfo">
+      <img id="domainLogo" class="domain-logo" src="" alt="">
+      <span class="domain-text" id="domainText"></span>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Anonymizes PII to protect sensitive data</p>
+  </div>
 
   <script src="safe-harbour.js"></script>
 </body>
